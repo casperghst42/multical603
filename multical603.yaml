@@ -1,3 +1,9 @@
+globals:
+  - id: meter_read
+    type: int
+    restore_value: yes
+    initial_value: "1800000"
+
 esphome:
   name: "multical603"
   name_add_mac_suffix: false
@@ -6,8 +12,14 @@ esphome:
     - multical402.h
 
   project:
-    name: esphome.multical603
+    name: casperghst42.multical603
     version: "1.0"
+
+#  on_boot:
+#    - wait_until:
+#      api.connected:
+#    - lambda: |- timeout(id("Read Timeout")*60000)
+
 
 esp32:
   board: wemos_d1_mini32
@@ -53,11 +65,13 @@ stream_server:
    uart_id: ir
    port: 3434
 
-#Karmstrup Custom Sensor (first variable is update interval in ms; 3600000 is 1 hour)
+# Karmstrup Custom Sensor (first variable is update interval in ms; 3600000 is 1 hour)
+# Reading every 30 minutes
+# Value set at the top of the file (variable: meter_read)
 custom_component:
   - lambda: |-
       auto Multical603 = new Multical402(
-        300000,
+        id(meter_read),
         id(ir),
         id(m_energy),
         id(m_power),
@@ -137,20 +151,17 @@ sensor:
     update_interval: 60s
     
   - platform: wifi_signal
-    name: "603 Wi-Fi Signal"
+    name: "Multical 603 Wi-Fi Signal"
     update_interval: 60s
 
 text_sensor:
-  - platform: dsmr
-    identification:
-      name: "DSMR Identification"
   - platform: wifi_info
     ip_address:
-      name: "Multical IP Address"
+      name: "Multical 603 IP Address"
     ssid:
-      name: "Multical Wi-Fi SSID"
+      name: "Multical 603 Wi-Fi SSID"
     bssid:
-      name: "Multical Wi-Fi BSSID"
+      name: "Multical 603 Wi-Fi BSSID"
   - platform: version
     name: "ESPHome Version"
     hide_timestamp: true

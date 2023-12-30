@@ -15,12 +15,6 @@ esphome:
     name: casperghst42.multical603
     version: "1.0"
 
-#  on_boot:
-#    - wait_until:
-#      api.connected:
-#    - lambda: |- timeout(id("Read Timeout")*60000)
-
-
 esp32:
   board: wemos_d1_mini32
   framework:
@@ -91,15 +85,15 @@ sensor:
     platform: template
     id: m_energy
     icon: "mdi:lightning-bolt"
-    unit_of_measurement: MWh
-    accuracy_decimals: 3
+    unit_of_measurement: 'MWh' 
+    accuracy_decimals: 0
     state_class: "total_increasing"
     device_class: "energy"
 
   - name: "Multical 603 Volume"
     platform: template
     id: m_volume
-    unit_of_measurement: m3
+    unit_of_measurement: 'm3'
     accuracy_decimals: 2
     state_class: "measurement"
 
@@ -107,7 +101,7 @@ sensor:
     platform: template
     id: m_tin
     icon: "mdi:thermometer"
-    unit_of_measurement: °C
+    unit_of_measurement: '°C'
     accuracy_decimals: 2
     state_class: "measurement"
     device_class: "temperature"
@@ -116,7 +110,7 @@ sensor:
     platform: template
     id: m_tout
     icon: "mdi:thermometer"
-    unit_of_measurement: °C
+    unit_of_measurement: '°C'
     accuracy_decimals: 2
     state_class: "measurement"
     device_class: "temperature"
@@ -125,7 +119,7 @@ sensor:
     platform: template
     id: m_tdiff
     icon: "mdi:thermometer"
-    unit_of_measurement: °C
+    unit_of_measurement: '°C'
     accuracy_decimals: 2
     state_class: "measurement"
     device_class: "temperature"
@@ -134,7 +128,7 @@ sensor:
     platform: template
     id: m_power
     icon: "mdi:flash"
-    unit_of_measurement: kW
+    unit_of_measurement: 'kW'
     accuracy_decimals: 1
     state_class: "measurement"
     device_class: "power"
@@ -142,7 +136,7 @@ sensor:
   - name: "Multical 603 Flow"
     platform: template
     id: m_flow
-    unit_of_measurement: l/h
+    unit_of_measurement: 'l/h'
     accuracy_decimals: 0
     state_class: "measurement"
 

@@ -26,8 +26,8 @@ I eventually got the one from amazon, but found a cheaper option on eBay.de: htt
 |---|---|
 | 3v | + |
 | GND | - |
-| io16 | rx_pin |
-| io17 | tx_pin  |
+| giop16/RX2 | rx_pin |
+| giop17/TX2 | tx_pin  |
 
 There should not be a difference if it's an ESP8266 or ESP32 module.
 

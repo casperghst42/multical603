@@ -140,22 +140,51 @@ sensor:
     accuracy_decimals: 0
     state_class: "measurement"
 
-  - platform: uptime
-    name: "Multical 603 Uptime"
-    update_interval: 60s
+  - name: "Multical 603 Uptime"
+    platform: template
+    id: m_hourcounter
+    icon: "mdi:clock-time-five-outline"
+    unit_of_measurement: "h"
+    state_class: "total_increasing"
+    accuracy_decimals: 0
     
-  - platform: wifi_signal
-    name: "Multical 603 Wi-Fi Signal"
+# --------------------------------------------------
+# Wifi signal sensors
+# --------------------------------------------------
+  - platform: wifi_signal # Reports the WiFi signal strength/RSSI in dB
+    name: "Diag : WiFi Signal dB"
+    id: wifi_signal_db
     update_interval: 60s
+    entity_category: "diagnostic"
 
+  - platform: copy # Reports the WiFi signal strength in %
+    source_id: wifi_signal_db
+    name: "Diag : WiFi Signal Percent"
+    filters:
+      - lambda: return min(max(2 * (x + 100.0), 0.0), 100.0);
+    unit_of_measurement: "Signal %"
+    entity_category: "diagnostic"
+
+
+# --------------------------------------------------
+# Reset button
+# --------------------------------------------------
+button:
+  # Create a button on web to reset device
+  - platform: restart
+    name: "Device Restart"
+    
 text_sensor:
   - platform: wifi_info
     ip_address:
-      name: "Multical 603 IP Address"
+      name: "Diag : IP Address"
+    mac_address:
+      name: "Diag : Mac Address"
     ssid:
-      name: "Multical 603 Wi-Fi SSID"
+      name: "Diag : Connected SSID"
     bssid:
-      name: "Multical 603 Wi-Fi BSSID"
+      name: "Diag : BSSID"
+
   - platform: version
     name: "ESPHome Version"
     hide_timestamp: true
